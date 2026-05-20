@@ -1,31 +1,53 @@
 # PNCAMDA
 
-PNCAMDA is a reliability-aware positive-unlabeled matrix completion framework with neighborhood consensus for miRNA–disease association prediction.
+## Introduction
 
-The framework contains three main components:
+In this repo, we implement the method **PNCAMDA: a reliability-aware matrix completion framework for miRNA-disease association prediction**. PNCAMDA integrates association-aware feature enhancement, positive-unlabeled weighted matrix completion, and neighborhood consensus reranking to predict potential miRNA-disease associations.
 
-1. Association-Aware Feature Enhancement (AAFE)
-2. Positive-Unlabeled Weighted Matrix Completion (PUWMC)
-3. Neighborhood Consensus Reranking (NCR)
 
-This repository provides the Python implementation of PNCAMDA and the ablation experiment used to evaluate the contribution of AAFE, PUWMC and NCR.
 
-## Overview
+## Requirements
 
-PNCAMDA is designed for prioritizing potential miRNA–disease associations from known association matrices and disease/miRNA similarity information.
+The code is implemented in Python and can be run on CPU. No GPU or CUDA environment is required.
 
-The main workflow is:
+- Python >= 3.8
+- NumPy >= 1.21
+- pandas >= 1.3
+- scikit-learn >= 1.0
+- openpyxl >= 3.0
+- PyTorch >= 1.6
+- CUDA >= 10.1
 
-1. Load HMDD miRNA–disease association data.
-2. Construct a disease × miRNA binary interaction matrix.
-3. Reconstruct fold-wise Gaussian interaction profile similarities.
-4. Enhance disease and miRNA similarities using association-aware profile information.
-5. Estimate positive-unlabeled confidence weights for unknown pairs.
-6. Perform weighted low-rank matrix completion.
-7. Refine high-confidence candidates using neighborhood consensus reranking.
-8. Evaluate prediction scores using AUC, AUPR, Accuracy, Precision, Recall, F1-score, Specificity and MCC.
+## Data
 
-## Main file
+The benchmark datasets should be placed in the `dataset` folder. The current implementation supports HMDD v2.0, HMDD v3.2, and HMDD v4.0.
 
 ```text
-PNCAMDA.py# PNCAMDA
+dataset/
+├── HMDD v2.0/
+├── HMDD v3.2/
+└── HMDD v4.0/
+```
+
+The dataset folders contain miRNA-disease association data, disease names, miRNA names, and similarity information.
+
+- HMDD v2.0: known miRNA-disease associations, disease semantic similarity matrices, miRNA functional similarity matrix, and name files.
+- HMDD v3.2: miRNA-disease association matrix, disease semantic similarity, miRNA semantic similarity, miRNA sequence similarity, miRNA functional similarity, and name files.
+- HMDD v4.0: HMDD v4.0 association data, disease and miRNA name files.
+
+
+## Main Files
+
+```text
+main.py                  Entry point
+config.py                Parameter settings
+data_loader.py           Dataset loading
+similarity.py            Similarity calculation
+feature_enhancement.py   Association-aware feature enhancement
+matrix_completion.py     Weighted matrix completion
+pu_ncr.py                PU weighting and neighborhood consensus reranking
+model.py                 PNCAMDA prediction pipeline
+evaluation.py            Cross-validation evaluation
+metrics.py               Evaluation metrics
+utils.py                 Utility functions
+```
