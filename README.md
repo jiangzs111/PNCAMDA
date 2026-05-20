@@ -23,10 +23,9 @@ The code is implemented in Python and can be run on CPU. No GPU or CUDA environm
 The benchmark datasets should be placed in the `dataset` folder. The current implementation supports HMDD v2.0, HMDD v3.2, and HMDD v4.0.
 
 ```text
-dataset/
-├── HMDD v2.0/
-├── HMDD v3.2/
-└── HMDD v4.0/
+─ HMDD v2.0/
+─ HMDD v3.2/
+─ HMDD v4.0/
 ```
 
 The dataset folders contain miRNA-disease association data, disease names, miRNA names, and similarity information.
